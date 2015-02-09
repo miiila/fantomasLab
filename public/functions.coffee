@@ -47,9 +47,10 @@ inputFocus = ->
 processCommand = (data) ->
   command = data.val()
   $('#typed').append('<br /> > ' + command)
+  console.log(window.location.hostname)
   $.ajax(
     type: 'GET',
-    url: 'http://localhost:8001/processCommand/'+command,
+    url: '/processCommand/' + command,
     beforeSend: ->
       $('#command').val('Processing...')
   ).done(processResult)

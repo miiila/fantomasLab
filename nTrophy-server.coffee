@@ -1,13 +1,26 @@
 # Requirements
 express = require('express')
 io = require('socket.io')()
+basicAuth = require('basic-auth');
+
 verificator = require('./lib/verificator.coffee')
 
 ## Set initial time balance
 balance = 0
 
+#Authentication
+auth = (request, response, next) ->
+  unauthorized = (response) ->
+    response.set('WWW-Authenticate', 'Basic realm=Authorization Required')
+    return response.send(401)
+  user = basicAuth(request)
+  return next() if user?.name == 'ntrophy' and user?.pass == 'sesameOtevriSe'
+    
+  return unauthorized(response)
+
 #Start App and routing
 app = express()
+
 app.get('/', (request,response) ->
   response.statusCode = 200
   response.send('Welcome to CML'))
@@ -16,10 +29,10 @@ app.get('/processCommand/:command', (request,response) ->
   response.statusCode = 200
   response.send(verificator.parseCommand(request.params.command)))
 
-app.get('/cml-client.html', (request,response) ->
+app.get('/cml-client.html',auth,(request,response) ->
   response.sendFile(__dirname+'/public/cml-client.html'))
 
-app.get('/ntrophy-admin.html', (request,response) ->
+app.get('/ntrophy-admin.html',auth, (request,response) ->
   response.sendFile(__dirname+'/public/ntrophy-admin.html'))
 
 app.get('/functions.js', (request,response) ->
