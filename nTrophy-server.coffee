@@ -31,8 +31,9 @@ app.get('/typed.js', (request,response) ->
 app.get('/cml-client.css', (request,response) ->
   response.sendFile(__dirname+'/css/cml-client.css'))
 
-server = app.listen(8001, ->
-  console.log('Server started'))
+app.set('port', (process.env.PORT || 5000));
+server = app.listen(app.get('port'), ->
+  console.log('Server started at port ' +  + app.get('port')))
 
 #Socket creation
 io.listen(server)
