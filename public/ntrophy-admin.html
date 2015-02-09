@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<script>
+    var socket = io.connect();
+
+    $(function() {
+        $( "#slider" ).slider({
+            min: 0,
+            max: 200,
+            step: 10,
+            value: 100,
+            stop: function( event, ui ) {
+                socket.emit('timeBalanceChange',{'percentage':ui.value});
+            },
+            slide: function( event, ui ) {
+                $( "#timePercentage" ).text( ui.value  + '%');
+            }
+        });
+    });
+</script>
+<h3>Time manipulation</h3>
+<div id="slider" style="width:200px;"></div>
+<span id="timePercentage">100%</span>
+<h3>Restart CML</h3>
+<button onclick="socket.emit('cmlRestart')">Restart CML</button>
+</body>
+</html>

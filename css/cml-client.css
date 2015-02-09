@@ -1,0 +1,139 @@
+body {
+    background: #111;
+    color: #29DD33;
+}
+
+#terminal {
+    position: absolute;
+    left: 0%;
+    bottom: 0%;
+    overflow: hidden;
+    text-transform: uppercase;
+}
+
+input {
+    background: #111;
+    border: none;
+    color: #29DD33;
+    text-transform: inherit;
+}
+
+.sign {
+    width:20em;
+    height: 5em;
+    text-transform: uppercase;
+    border: solid 1px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 5em;
+    position: absolute;
+    margin: auto;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    top: 10%;
+}
+
+.green {
+    color: #29DD33;
+}
+
+.red {
+    color: #880000;
+}
+
+#granted {
+    background: rgba(41,221,51,0.3);
+    border-color: #29DD33;
+    color: #29DD33;
+}
+
+
+#denied {
+    background: rgba(136,0,0,0.3);
+    border-color: #880000;
+    color: #880000;
+}
+
+
+.opened {
+    background: #29DD33;
+    border-color: #29DD33 !important;
+}
+
+.closed {
+    background: #880000;
+    border-color: #880000 !important;
+}
+
+/*Map section*/
+
+#map {
+    left:10em;
+    border: 1px solid;
+    width: 70%;
+    height: 40%;
+    position: absolute;
+    margin: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+}
+
+#mainRoom {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 8px solid;
+    left: 43%;
+    top: 25%;
+}
+
+.corridor {
+    position: absolute;
+    width: 4em;
+    height: 1.5em;
+    border: 1px solid;
+}
+
+/*Corridors*/
+.top {
+    top: 3.8em;
+}
+
+.bottom {
+    bottom: 4.2em;
+}
+
+.firstLeft {
+    left: 19.5em;
+}
+
+.firstRight {
+    right: 20.1em;
+}
+
+.secondLeft {
+    left: 15.3em;
+}
+
+.secondRight {
+    right: 15.9em;
+}
+
+.thirdLeft {
+    left: 11.1em;
+}
+
+.thirdRight {
+    right: 11.7em;
+}
+
+.fourthLeft {
+    left: 6.9em;
+}
+
+.fourthRight {
+    right: 7.5em;
+}
