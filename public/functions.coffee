@@ -6,7 +6,7 @@
 
 ) jQuery
 
-loadingSequence = "> ^1000 Starting CML connection <br /> > ^1000 Loading kernel <br /> > ^1000 Loading map"
+loadingSequence = "<div class='terminalRow'>> ^1000 Starting CML connection </div> <div class='terminalRow'>> ^1000 Loading kernel </div> <div class='terminalRow'> > ^1000 Loading map</div>"
 
 $( ->
   $('input').val('')
@@ -46,7 +46,7 @@ inputFocus = ->
 #################
 processCommand = (data) ->
   command = data.val()
-  $('#typed').append('<br /> > ' + command)
+  $('#typed').append("<div class='terminalRow'> > " + command + "</div>")
   console.log(window.location.hostname)
   $.ajax(
     type: 'GET',

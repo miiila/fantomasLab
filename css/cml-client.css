@@ -66,6 +66,14 @@ input {
     border-color: #880000 !important;
 }
 
+.terminalRow {
+    display: none;
+}
+
+.terminalRow:nth-last-child(-n+7) {
+    display: block;
+}
+
 /*Map section*/
 
 #map {
