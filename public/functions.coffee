@@ -46,7 +46,7 @@ inputFocus = ->
 #################
 processCommand = (data) ->
   command = data.val()
-  $('#typed').append("<div class='terminalRow'> > " + command + "</div>")
+  $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>")
   console.log(window.location.hostname)
   $.ajax(
     type: 'GET',
@@ -108,3 +108,9 @@ flash = (objectToFlash) ->
   setInterval(->
     objectToFlash.toggle()
   ,500)
+  
+# http://shebang.brandonmintern.com/foolproof-html-escaping-in-javascript/
+escapeString = (str) ->
+  div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
