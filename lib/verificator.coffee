@@ -4,11 +4,11 @@ class Result
   @type
 
 codes = {
-  'jahoda':'echo',
-  'boruvka':'golf',
-  'malina':'hotel'}
+  'jahoda':'2_a_3',
+  'boruvka':'2_b_2',
+  'malina':'2_c_3'}
 
-cmlDependentLocations = ['1_a_1','1_b_1','1_c_1','1_d_1','2_a_1','2_b_1','2_c_1','2_d_1']
+cmlDependentLocations = ['2_a_4','2_b_1','2_c_4','2_d_1','3_a_4','3_b_1','3_c_4','3_d_1']
 
 verifyCode = (code) ->
   return codes[code] ? false
