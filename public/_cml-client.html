@@ -1,0 +1,83 @@
+<html>
+<head>
+    <link rel="stylesheet" href="cml-client.css">
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="typed.js"></script>
+    <script src="functions.js"></script>
+</head>
+<body>
+<script>
+    var currentTime = new Date().getTime();
+    var balance = 0;
+    var timeDiff = 0;
+    var socket = io.connect(window.location.hostname);
+    socket.on('connect',function() {
+        $('.socket').text('Connected');
+        socket.emit('clientConnected',function(data){
+            balance = data.timeBalance;
+        });
+    });
+    socket.on('timeBalanceChange',function(data) {
+        balance = data.timeBalance;
+    });
+    socket.on('cmlRestart',function() {
+        window.location.reload();
+    });
+    setInterval(function() {
+        timeDiff += balance;
+        var time = new Date().getTime()+timeDiff;
+        $('.time').text(new Date(time).toLocaleTimeString());
+    },100);
+
+</script>
+<div id="terminal">
+    <div id="typed"></div>
+    <label for="command" class="nonStartup">> </label>
+    <input type="text" id="command" class="nonStartup">
+</div>
+<div id="main" class="nonStartup">
+    <table>
+        <tr>
+            <td>Network status:</td>
+            <td class="socket"></td>
+        </tr>
+        <tr>
+            <td>Master time:</td>
+            <td class="time"></td>
+        </tr>
+        <tr>
+            <td>CML status:</td>
+            <td class="cmlState">Running</td>
+        </tr>
+    </table>
+
+
+
+    <div id="map">
+        <div id="mainRoom"></div>
+        <div class="corridor top firstLeft closed" id="alfa"></div>
+        <div class="corridor bottom firstLeft closed" id="bravo"></div>
+        <div class="corridor top firstRight closed" id="charlie"></div>
+        <div class="corridor bottom firstRight closed" id="delta"></div>
+        <div class="corridor top secondLeft closed" id="echo"></div>
+        <div class="corridor bottom secondLeft closed" id="foxtrot"></div>
+        <div class="corridor top secondRight closed" id="golf"></div>
+        <div class="corridor bottom secondRight closed" id ="hotel"></div>
+        <div class="corridor top thirdLeft closed"></div>
+        <div class="corridor bottom thirdLeft closed"></div>
+        <div class="corridor top thirdRight closed"></div>
+        <div class="corridor bottom thirdRight closed"></div>
+        <div class="corridor top fourthLeft closed"></div>
+        <div class="corridor bottom fourthLeft closed"></div>
+        <div class="corridor top fourthRight closed"></div>
+        <div class="corridor bottom fourthRight closed"></div>
+    </div>
+
+    <div class="sign" id="granted">
+        <span>Access Granted</span>
+    </div>
+    <div class="sign" id="denied"><span>Access Denied</span></div>
+</div>
+</body>
+</html>

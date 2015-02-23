@@ -1,7 +1,7 @@
 # Requirements
 express = require('express')
 io = require('socket.io')()
-basicAuth = require('basic-auth');
+basicAuth = require('basic-auth')
 
 verificator = require('./lib/verificator.coffee')
 
@@ -41,8 +41,11 @@ app.get('/functions.js', (request,response) ->
 app.get('/typed.js', (request,response) ->
   response.sendFile(__dirname+'/js/vendor/typed.js'))
 
-app.get('/cml-client.css', (request,response) ->
-  response.sendFile(__dirname+'/css/cml-client.css'))
+app.get('/*.css', (request,response) ->
+  response.sendFile(__dirname+'/css/'+request.params[0]+'.css'))
+
+app.get('/*.png', (request,response) ->
+  response.sendFile(__dirname+'/'+request.params[0]+'.png'))
 
 app.set('port', (process.env.PORT || 5000));
 server = app.listen(app.get('port'), ->

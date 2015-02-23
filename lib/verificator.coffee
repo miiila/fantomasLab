@@ -8,7 +8,7 @@ codes = {
   'boruvka':'golf',
   'malina':'hotel'}
 
-cmlDependentLocations = ['alfa','bravo','charlie','delta']
+cmlDependentLocations = ['1_a_1','1_b_1','1_c_1','1_d_1','2_a_1','2_b_1','2_c_1','2_d_1']
 
 verifyCode = (code) ->
   return codes[code] ? false

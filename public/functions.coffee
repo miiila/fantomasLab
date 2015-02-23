@@ -47,7 +47,6 @@ inputFocus = ->
 processCommand = (data) ->
   command = data.val()
   $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>")
-  console.log(window.location.hostname)
   $.ajax(
     type: 'GET',
     url: '/processCommand/' + command,

@@ -1,147 +1,286 @@
-body {
-    background: #111;
-    color: #29DD33;
+﻿body
+{
+    color: #29DD33;    
+    background:#111;
+    margin-top:20px;
+    font-family:Courier;
+    }
+    
+/* ========== Cas ========== */
+
+#border_time
+{
+    width:260px;
+    position:absolute;   
+    border:10px 1px solid #29DD33;
+    border-style:double;   
+    padding:5px 5px 5px 5px; 
+    }
+     
+    
+/* ========== ukoly ========== */
+ 
+ #title_quests
+{
+    background:#111;
+    width:auto;
+    padding: 2px 10px 2px 10px;
+    height:10px;
+    margin:100px 0 0 100px;
+    position:absolute;
+    z-index:1;
+    }  
+    
+#border_quests
+{
+    width:260px;
+    height:auto;
+    position:absolute;  
+    margin-top:110px; 
+    border:50px 1px solid #29DD33;
+    border-style:double;   
+    padding:5px 5px 5px 5px; 
+    }
+
+.quest_opened
+{
+    background: rgba(41,221,51,0.3);
+    border: solid 1px #29DD33;
+    margin:1px  4px 2px 2px;
+    padding:7px 0px 7px 4px;
+    }
+
+.quest_closed
+{
+    background: rgba(136,0,0,0.3);
+    border: solid 1px #880000;
+    color:#880000;
+    margin:1px 4px 2px 2px;
+    padding:7px 0px 7px 4px;
+    }
+
+#quest_firstfloor
+{
+    width:130px;
+    float:left;
+    margin-top:8px;
+    }
+
+#quest_secondfloor
+{
+    width:130px;
+    float:left;
+    margin-top:8px;
+    }
+
+/* ========== Prvni podlazi ========== */
+
+ #title_firstfloor
+{
+    background:#111;
+    width:auto;
+    padding: 2px 20px 2px 20px;
+    height:10px;
+    margin:-10px 0 0 500px;
+    position:absolute;
+    z-index:1;
+    }  
+    
+#border_firstfloor
+{
+    width:65%;
+    height:220px;
+    margin:0 0 0 290px;
+    position:absolute; 
+    border:10px 1px solid #29DD33;
+    border-style:double; 
+    padding:7px 5px 5px 5px;  
+    
+    
+    }
+    
+#areal
+{
+    background:url("../images/areal.png")no-repeat;
+    width:464px;
+    height:216px;
+    margin:auto;
+    padding:0;
+    padding-top:60px;
+    
+    }  
+
+/* ========== Druhy podlazi ========== */
+
+ #title_secondfloor
+{
+    background:#111;
+    width:auto;
+    padding: 2px 20px 2px 20px;
+    height:10px;
+    margin:240px 0 0 500px;
+    position:absolute;
+    z-index:1;
+    }  
+
+#border_secondfloor
+{
+    width:65%;
+    height:220px;
+    margin:250px 0 0 290px;
+    position:absolute; 
+    border:10px 1px solid #29DD33;
+    border-style:double;
+    padding:7px 5px 0px 5px;  
+    }
+  
+        
+#areal2
+{
+    background:url("../images/areal2.png")no-repeat;
+    width:464px;
+    height:216px;
+    margin:auto;
+    padding:0;
+    padding-top:60px;
+    
+    }    
+    
+    
+
+/* ========== Prikazovy radek ========== */
+
+ #title_comandline
+{
+    background:#111;
+    width:auto;
+    padding: 2px 20px 2px 20px;
+    height:10px;
+    margin:490px 0 0 500px;
+    position:absolute;
+    z-index:1;
+    }
+
+#border_comandline
+{
+    
+    width:65%;
+    min-height:190px;
+    
+    margin:500px 0 0 290px;
+    position:absolute; 
+    border:10px 1px solid #29DD33;
+    border-style:double; 
+    padding:5px 5px 0px 5px;  
+    }
+
+
+/* ========== Chodby =========== */
+
+#left_top_corridor
+{
+ 
+    height:25px;
+    width:132px;
+    float:left;
+    margin-left:32px;
+    }
+#right_top_corridor
+{
+   
+    height:25px;
+    width:132px;
+    float:left;
+    margin-left:119px;
+    }
+    
+#left_bottom_corridor
+{
+    margin-top:57px;
+    height:25px;
+    width:132px;
+    float:left;
+    margin-left:32px;
+    }
+    
+#right_bottom_corridor
+{
+    margin-top:57px;
+    height:25px;
+    width:132px;
+    float:left;
+    margin-left:119px;
+    
+    }
+.closed
+{  
+    background: rgba(136,0,0,0.3) url("../images/locked.png")no-repeat;
+    border: solid 1px #880000;
+    height:13px;
+    width:15px;
+    }
+    
+.opened
+{
+    background: rgba(41,221,51,0.3) url("../images/open.png")no-repeat;
+    border: solid 1px #29DD33;
+    height:13px;
+    width:15px;
+    
+    }
+
+.corridor {
+    width: 30px;
+    height: 13px;
+    float:left;
+    margin-right:1px;
 }
 
-#terminal {
-    position: absolute;
-    left: 0%;
-    bottom: 0%;
-    overflow: hidden;
-    text-transform: uppercase;
+.firstLeft {
+    left: 30px;
+    }
+
+.firstRight {
+    right: 30px;
+    }
+
+.secondLeft {
+    left: 30px;
+    }
+
+.secondRight {
+    right: 30px;
+    }
+
+.thirdLeft {
+    left:30px;
+    }
+
+.thirdRight {
+    right:30px;
+    }
+
+.fourthLeft {
+    left: 30px;
+    }
+
+.fourthRight {
+    right: 30px;
+    }
+
+/* ========== Terminal  ========== */
+
+.terminalRow {
+    display: none;
+}
+
+.terminalRow:nth-last-child(-n+10) {
+    display: block;
 }
 
 input {
     background: #111;
     border: none;
     color: #29DD33;
-    text-transform: inherit;
-}
-
-.sign {
-    width:20em;
-    height: 5em;
     text-transform: uppercase;
-    border: solid 1px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 5em;
-    position: absolute;
-    margin: auto;
-    right: 0;
-    bottom: auto;
-    left: 0;
-    top: 10%;
-}
-
-.green {
-    color: #29DD33;
-}
-
-.red {
-    color: #880000;
-}
-
-#granted {
-    background: rgba(41,221,51,0.3);
-    border-color: #29DD33;
-    color: #29DD33;
-}
-
-
-#denied {
-    background: rgba(136,0,0,0.3);
-    border-color: #880000;
-    color: #880000;
-}
-
-
-.opened {
-    background: #29DD33;
-    border-color: #29DD33 !important;
-}
-
-.closed {
-    background: #880000;
-    border-color: #880000 !important;
-}
-
-.terminalRow {
-    display: none;
-}
-
-.terminalRow:nth-last-child(-n+7) {
-    display: block;
-}
-
-/*Map section*/
-
-#map {
-    left:10em;
-    border: 1px solid;
-    width: 70%;
-    height: 40%;
-    position: absolute;
-    margin: auto;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    top: 0;
-}
-
-#mainRoom {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    border: 8px solid;
-    left: 43%;
-    top: 25%;
-}
-
-.corridor {
-    position: absolute;
-    width: 4em;
-    height: 1.5em;
-    border: 1px solid;
-}
-
-/*Corridors*/
-.top {
-    top: 3.8em;
-}
-
-.bottom {
-    bottom: 4.2em;
-}
-
-.firstLeft {
-    left: 19.5em;
-}
-
-.firstRight {
-    right: 20.1em;
-}
-
-.secondLeft {
-    left: 15.3em;
-}
-
-.secondRight {
-    right: 15.9em;
-}
-
-.thirdLeft {
-    left: 11.1em;
-}
-
-.thirdRight {
-    right: 11.7em;
-}
-
-.fourthLeft {
-    left: 6.9em;
-}
-
-.fourthRight {
-    right: 7.5em;
 }

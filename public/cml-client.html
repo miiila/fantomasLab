@@ -1,17 +1,20 @@
-<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-    <link rel="stylesheet" href="cml-client.css">
+    <title>CML</title>
+    <link rel="stylesheet" href="cml-client.css" type="text/css" />
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="typed.js"></script>
     <script src="functions.js"></script>
 </head>
 <body>
+
 <script>
     var currentTime = new Date().getTime();
     var balance = 0;
     var timeDiff = 0;
-    var socket = io.connect(window.location.hostname);
+    var socket = io.connect(window.location.hostname+':5000');
     socket.on('connect',function() {
         $('.socket').text('Connected');
         socket.emit('clientConnected',function(data){
@@ -31,13 +34,11 @@
     },100);
 
 </script>
-<div id="terminal">
-    <div id="typed"></div>
-    <label for="command" class="nonStartup">> </label>
-    <input type="text" id="command" class="nonStartup">
-</div>
-<div id="main" class="nonStartup">
-    <table>
+
+
+<!-- Ramec pro cas -->
+<div id ="border_time" >
+   <table>
         <tr>
             <td>Network status:</td>
             <td class="socket"></td>
@@ -51,33 +52,142 @@
             <td class="cmlState">Running</td>
         </tr>
     </table>
+</div>
+<!-- Ramec pro ukoly -->
+<div id ="title_quests" >QUESTS</div> 
+<div id="border_quests">
+
+<div id="quest_firstfloor">
+    <div class="quest_opened">1.</div>
+    <div class="quest_closed">2.</div>
+    <div class="quest_closed">3.</div>
+    <div class="quest_closed">4.</div>
+    <div class="quest_closed">5.</div>
+    <div class="quest_closed">6.</div>
+    <div class="quest_closed">7.</div>
+    <div class="quest_closed">8.</div>
+    <div class="quest_closed">9.</div>
+    <div class="quest_closed">10.</div>
+    <div class="quest_closed">11.</div>
+    <div class="quest_closed">12.</div>
+    <div class="quest_closed">13.</div>
+    <div class="quest_closed">14.</div>
+    <div class="quest_closed">15.</div>
+    <div class="quest_closed">16.</div>
+</div>
+<div id="quest_secondfloor">
+    <div class="quest_closed">1.</div>
+    <div class="quest_closed">2.</div>
+    <div class="quest_closed">3.</div>
+    <div class="quest_closed">4.</div>
+    <div class="quest_closed">5.</div>
+    <div class="quest_closed">6.</div>
+    <div class="quest_closed">7.</div>
+    <div class="quest_closed">8.</div>
+    <div class="quest_closed">9.</div>
+    <div class="quest_closed">10.</div>
+    <div class="quest_closed">11.</div>
+    <div class="quest_closed">12.</div>
+    <div class="quest_closed">13.</div>
+    <div class="quest_closed">14.</div>
+    <div class="quest_closed">15.</div>
+    <div class="quest_closed">16.</div>
+</div>
+
+</div>
+<!-- Ramec pro 1. podlazi -->
+<div id ="title_firstfloor" >1st FLOOR</div>
+<div id="border_firstfloor">
+    
+<div id="areal">
+    
+    <!-- LEVA Horni chodba -->
+<div id="left_top_corridor">
+    <div class="corridor firstleft closed"></div>
+    <div class="corridor secondLeft closed"></div>
+    <div class="corridor thirdLeft closed"></div>
+    <div class="corridor fourthLeft closed" id="1_a_1"></div>
+</div>    
+    <!-- PRAVA Horni chodba -->
+<div id="right_top_corridor">
+    <div class="corridor firstRight closed" id="1_b_1"></div>
+    <div class="corridor secondRight closed"></div>
+    <div class="corridor thirdRight closed"></div>
+    <div class="corridor fourthRight  closed"></div>
+</div>    
+   
+    <!-- LEVA Dolni chodba -->
+<div id="left_bottom_corridor">    
+    <div class="corridor firstLeft closed"></div>
+    <div class="corridor secondLeft closed"></div>
+    <div class="corridor thirdLeft closed"></div>
+    <div class="corridor fourthLeft closed" id="1_c_1"></div>
+</div> 
+    
+    <!-- PRAVA Dolni chodba -->
+<div id="right_bottom_corridor">    
+    <div class="corridor firstRight closed" id="1_d_1"></div>
+    <div class="corridor secondRight closed"></div>
+    <div class="corridor thirdRight closed"></div>
+    <div class="corridor fourthRight  closed"></div>
+</div> 
+    </div> 
+    
+</div>
 
 
+ 
+<!-- Ramec pro 2. podlazi -->
+<div id ="title_secondfloor" >2nd FLOOR</div>
+<div id="border_secondfloor">
+    <div id="areal2">
+    
+    <!-- LEVA Horni chodba -->
+<div id="left_top_corridor">
+    <div class="corridor firstleft closed"></div>
+    <div class="corridor secondLeft closed"></div>
+    <div class="corridor thirdLeft closed"></div>
+    <div class="corridor fourthLeft closed"  id="2_a_1"></div>
+</div>    
+    <!-- PRAVA Horni chodba -->
+<div id="right_top_corridor">
+    <div class="corridor firstRight closed" id="2_b_1"></div>
+    <div class="corridor secondRight closed"></div>
+    <div class="corridor thirdRight closed"></div>
+    <div class="corridor fourthRight  closed"></div>
+</div>    
+   
+    <!-- LEVA Dolni chodba -->
+<div id="left_bottom_corridor">    
+    <div class="corridor firstLeft closed"></div>
+    <div class="corridor secondLeft closed"></div>
+    <div class="corridor thirdLeft closed"></div>
+    <div class="corridor fourthLeft closed" id="2_c_1"></div>
+</div> 
+    
+    <!-- PRAVA Dolni chodba -->
+<div id="right_bottom_corridor">    
+    <div class="corridor firstRight closed" id="2_d_1"></div>
+    <div class="corridor secondRight closed"></div>
+    <div class="corridor thirdRight closed"></div>
+    <div class="corridor fourthRight  closed"></div>
+</div> 
+    </div> 
+</div>
+ 
 
-    <div id="map">
-        <div id="mainRoom"></div>
-        <div class="corridor top firstLeft closed" id="alfa"></div>
-        <div class="corridor bottom firstLeft closed" id="bravo"></div>
-        <div class="corridor top firstRight closed" id="charlie"></div>
-        <div class="corridor bottom firstRight closed" id="delta"></div>
-        <div class="corridor top secondLeft closed" id="echo"></div>
-        <div class="corridor bottom secondLeft closed" id="foxtrot"></div>
-        <div class="corridor top secondRight closed" id="golf"></div>
-        <div class="corridor bottom secondRight closed" id ="hotel"></div>
-        <div class="corridor top thirdLeft closed"></div>
-        <div class="corridor bottom thirdLeft closed"></div>
-        <div class="corridor top thirdRight closed"></div>
-        <div class="corridor bottom thirdRight closed"></div>
-        <div class="corridor top fourthLeft closed"></div>
-        <div class="corridor bottom fourthLeft closed"></div>
-        <div class="corridor top fourthRight closed"></div>
-        <div class="corridor bottom fourthRight closed"></div>
+<!-- Ramec pro prikazovy radek -->
+<div id ="title_comandline" >COMAND LINE</div>
+<div id="border_comandline">
+
+<!-- Psani prikazu-->
+    <div id="terminal">
+        <div id="typed"></div>
+        <label for="command" class="nonStartup">> </label>
+        <input type="text" id="command" class="nonStartup">
     </div>
 
-    <div class="sign" id="granted">
-        <span>Access Granted</span>
-    </div>
-    <div class="sign" id="denied"><span>Access Denied</span></div>
+
 </div>
 </body>
 </html>
