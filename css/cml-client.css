@@ -1,10 +1,19 @@
-﻿body
+body
 {
     color: #29DD33;    
     background:#111;
     margin-top:20px;
     font-family:Courier;
     }
+    
+.red 
+{
+    color: #880000;
+    }
+    
+.green {
+    color: #29DD33;
+}
     
 /* ========== Cas ========== */
 
@@ -276,4 +285,35 @@ input {
     border: none;
     color: #29DD33;
     text-transform: uppercase;
+}
+
+/* ========== Flashing message  ========== */
+
+.sign {
+    width:20em;
+    height: 5em;
+    text-transform: uppercase;
+    border: solid 1px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 5em;
+    position: absolute;
+    margin: auto;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    top: 10%;
+}
+
+#granted {
+    background: rgba(41,221,51,0.3);
+    border-color: #29DD33;
+    color: #29DD33;
+}
+
+
+#denied {
+    background: rgba(136,0,0,0.3);
+    border-color: #880000;
+    color: #880000;
 }

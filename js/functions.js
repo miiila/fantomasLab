@@ -3,7 +3,7 @@ var escapeString, flash, formatTime, formatTwoDigitTime, inputFocus, loadingSequ
 
 (function($) {})(jQuery);
 
-loadingSequence = "<div class='terminalRow'>> ^1000 Starting CML connection </div> <div class='terminalRow'>> ^1000 Loading kernel </div> <div class='terminalRow'> > ^1000 Loading map</div>";
+loadingSequence = "<div class='terminalRow'>> ^1000 Starting CML connection </div> <div class='terminalRow'>> ^1000 Loading kernel </div> <div class='terminalRow'> > ^1000 Loading map ^1000</div>";
 
 $(function() {
   $('input').val('');
@@ -11,7 +11,7 @@ $(function() {
   $('#typed').typed({
     strings: [loadingSequence],
     typeSpeed: 50,
-    showCursor: true,
+    showCursor: false,
     callback: function() {
       $('.typed-cursor').hide();
       $('.nonStartup').show();
@@ -63,9 +63,8 @@ processResult = function(result) {
           flashSign = flash($('#denied'));
         }
         setTimeout(function() {
-          return clearInterval(flashSign);
-        }, 3000);
-        $('.sign').hide();
+          return finishFlash(flashSign);
+        }, 4000);
         break;
       case 'system':
         if (result.success && result.command === 'shutdown') {
@@ -113,7 +112,7 @@ flash = function(objectToFlash) {
   objectToFlash.toggle();
   return setInterval(function() {
     return objectToFlash.toggle();
-  }, 500);
+  }, 700);
 };
 
 escapeString = function(str) {
@@ -122,5 +121,10 @@ escapeString = function(str) {
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 };
+
+var finishFlash = function(intervalVar) {
+  clearInterval(intervalVar);
+  $('.sign').hide();
+}
 
 //# sourceMappingURL=functions.js.map

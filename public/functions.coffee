@@ -64,9 +64,8 @@ processResult = (result) ->
         else
           flashSign = flash($('#denied'))
         setTimeout(->
-            clearInterval(flashSign)
-          ,3000)
-        $('.sign').hide()
+            finishFlash(flashSign)
+          ,4000)
       when 'system'
         if result.success && result.command == 'shutdown'
             openLocation(location) for location in result.locations
@@ -106,10 +105,14 @@ flash = (objectToFlash) ->
   objectToFlash.toggle()
   setInterval(->
     objectToFlash.toggle()
-  ,500)
+  ,700)
   
 # http://shebang.brandonmintern.com/foolproof-html-escaping-in-javascript/
 escapeString = (str) ->
   div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
+  
+finishFlash = (intervalVar) ->
+  clearInterval(intervalVar)
+  $('.sign').hide()
