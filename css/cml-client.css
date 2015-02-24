@@ -167,7 +167,7 @@ body
 {
     
     width:65%;
-    min-height:190px;
+    min-height:200px;
     
     margin:500px 0 0 290px;
     position:absolute; 
@@ -276,7 +276,7 @@ body
     display: none;
 }
 
-.terminalRow:nth-last-child(-n+10) {
+.terminalRow:nth-last-child(-n+9) {
     display: block;
 }
 
