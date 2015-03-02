@@ -14,6 +14,15 @@ body
 .green {
     color: #29DD33;
 }
+
+.floatLeft {
+    float: left;
+}
+
+.floatRight {
+    float: right;
+    margin-right: 5px;
+}
     
 /* ========== Cas ========== */
 
@@ -51,7 +60,7 @@ body
     padding:5px 5px 5px 5px; 
     }
 
-.quest_opened
+.quest_green
 {
     background: rgba(41,221,51,0.3);
     border: solid 1px #29DD33;
@@ -59,7 +68,7 @@ body
     padding:7px 0px 7px 4px;
     }
 
-.quest_closed
+.quest_red
 {
     background: rgba(136,0,0,0.3);
     border: solid 1px #880000;

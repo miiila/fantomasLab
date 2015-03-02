@@ -12,25 +12,31 @@
 
 <script>
     var currentTime = new Date().getTime();
-    var balance = 0;
+    window.balance = 0;
     var timeDiff = 0;
-    var socket = io.connect(window.location.hostname);
+    var socket = io.connect(window.location.hostname+':5000');
     socket.on('connect',function() {
         $('.socket').text('Connected');
         socket.emit('clientConnected',function(data){
-            balance = data.timeBalance;
+            window.balance = data.timeBalance;
         });
     });
     socket.on('timeBalanceChange',function(data) {
-        balance = data.timeBalance;
+        window.balance = data.timeBalance;
     });
     socket.on('cmlRestart',function() {
         window.location.reload();
     });
+    socket.on('startCmlTask',function(cmlTask) {
+        startCmlTask(cmlTask)
+    });
     setInterval(function() {
-        timeDiff += balance;
+        timeDiff += window.balance;
         var time = new Date().getTime()+timeDiff;
         $('.time').text(new Date(time).toLocaleTimeString());
+    },100);
+    setInterval(function() {
+        countCmlTime();
     },100);
 
 </script>
@@ -56,26 +62,10 @@
 <!-- Wrapper pro schovani pred spustenim -->
 <div class="nonStartup">
     <!-- Ramec pro ukoly -->
-    <div id ="title_quests" >QUESTS</div>
+    <div id ="title_quests" >CML Tasks</div>
     <div id="border_quests">
 
-    <div id="quest_firstfloor">
-        <div class="quest_opened">1.</div>
-        <div class="quest_closed">2.</div>
-        <div class="quest_closed">3.</div>
-        <div class="quest_closed">4.</div>
-        <div class="quest_closed">5.</div>
-        <div class="quest_closed">6.</div>
-        <div class="quest_closed">7.</div>
-        <div class="quest_closed">8.</div>
-        <div class="quest_closed">9.</div>
-        <div class="quest_closed">10.</div>
-        <div class="quest_closed">11.</div>
-        <div class="quest_closed">12.</div>
-        <div class="quest_closed">13.</div>
-        <div class="quest_closed">14.</div>
-        <div class="quest_closed">15.</div>
-        <div class="quest_closed">16.</div>
+    <div id="cmlTasks">
     </div>
 
     </div>

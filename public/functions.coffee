@@ -36,6 +36,7 @@ $( ->
   )
   $('.sign').hide();
   inputFocus();
+  window.cmlTasksTimes = new Array()
 )
 
 inputFocus = ->
@@ -71,18 +72,21 @@ processResult = (result) ->
             openLocation(location) for location in result.locations
             $('.cmlState').text('STOPPED')
             $('.cmlState').addClass('red')
+            $('#cmlTasks').text('')
         else
           $('#command').val('unknown command')
       #Clear input form
     $('#command').val('')
   ,2000)
 
-
-
-
 openLocation = (locationId) ->
   $('#'+locationId).removeClass('closed')
   $('#'+locationId).addClass('opened')
+
+startCmlTask = (cmlTask) ->
+  window.cmlTasksTimes.push({"id":cmlTask.id,"miliseconds":cmlTask.miliseconds})
+  innerHtml = "<div class='quest_green'><span>"+cmlTask.name+"</span><span id=\""+cmlTask.id+"\" class='floatRight'>"+cmlTask.time+"</span></div>"
+  $('#cmlTasks').append(innerHtml)
 
 ################
 #Util functions#
@@ -116,3 +120,16 @@ escapeString = (str) ->
 finishFlash = (intervalVar) ->
   clearInterval(intervalVar)
   $('.sign').hide()
+
+countCmlTime = ->
+  window.cmlTasksTimes =
+    for taskTime in window.cmlTasksTimes
+      newTime = taskTime.miliseconds - (100+window.balance)
+      taskTimeObject = new Date(newTime)
+      formattedTimeString = formatTwoDigitTime(taskTimeObject.getMinutes())+":"+formatTwoDigitTime(taskTimeObject.getSeconds())
+      if formattedTimeString == '03:00'
+        $('#'+taskTime.id).parent().removeClass('quest_green')
+        $('#'+taskTime.id).parent().addClass('quest_red')
+      alert ('!!!!!') if formattedTimeString == '00:00'
+      $('#'+taskTime.id).text(formattedTimeString)
+      {"miliseconds":newTime,"id":taskTime.id}

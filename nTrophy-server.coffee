@@ -68,6 +68,14 @@ io.sockets.on('connection',(socket) ->
     console.log('CML Restart requested')
     socket.broadcast.emit('cmlRestart')
   )
+  socket.on('cmlTaskStarted', (cmlTask)->
+    console.log('CML Task started ' + JSON.stringify(cmlTask))
+    timeArray = cmlTask.time.split(":")
+    cmlTask.miliseconds = (timeArray[0] * 60000) + (timeArray[1]*1000)
+    cmlTask.id = Math.floor(Math.random()*10000)
+    console.log('Recalculated ' + JSON.stringify(cmlTask))
+    socket.broadcast.emit('startCmlTask',cmlTask)
+  )
 )
 
 
