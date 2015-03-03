@@ -25,7 +25,7 @@
             }
         });
         $('#addTask').click(function(){
-            var html = "<div class='cmlTask'><label class='cmlTaskName'>"+$(this).prev().val()+"</label><input id='"+generateID()+"' class='cmlTaskTime' value='10:00'><button class='cmlTaskStart' onclick='startTask(this)'>Start</button><button class='cmlTaskFinish' onclick=''finishTask(this)'>Finish</button></div>";
+            var html = "<div class='cmlTask'><label class='cmlTaskName'>"+$(this).prev().val()+"</label><input id='"+generateID()+"' class='cmlTaskTime' value='10:00'><button class='cmlTaskStart' onclick='startTask(this)'>Start</button><button class='cmlTaskFinish' onclick='finishTask(this)'>Finish</button></div>";
             $(".cmlTask").append(html);
         });
     });
