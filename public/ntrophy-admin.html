@@ -25,7 +25,7 @@
             }
         });
         $('#addTask').click(function(){
-            var html = "<div class='cmlTask'><label class='cmlTaskName'>"+$(this).prev().val()+"</label><input class='cmlTaskTime'><button class='cmlTaskStart' onclick='startTask(this)'>Start</button></div>";
+            var html = "<div class='cmlTask'><label class='cmlTaskName'>"+$(this).prev().val()+"</label><input id='"+generateID()+"' class='cmlTaskTime' value='10:00'><button class='cmlTaskStart' onclick='startTask(this)'>Start</button><button class='cmlTaskFinish' onclick=''finishTask(this)'>Finish</button></div>";
             $(".cmlTask").append(html);
         });
     });
@@ -33,10 +33,22 @@
     var startTask = function(context){
         var cmlTask = {
             "name": $(context).prev().prev('.cmlTaskName').html(),
-            "time": $(context).prev('.cmlTaskTime').val()
+            "time": $(context).prev('.cmlTaskTime').val(),
+            "id": $(context).prev('.cmlTaskTime').attr('id')
         }
         socket.emit('cmlTaskStarted',cmlTask);
     };
+
+    var finishTask = function(context){
+        var cmlTask = {
+            "id": $(context).prev().prev('.cmlTaskTime').attr('id')
+        }
+        socket.emit('cmlTaskFinished',cmlTask);
+    };
+
+    var generateID = function() {
+        return Math.floor(Math.random()*10000);
+    }
 </script>
 <h3>Time manipulation</h3>
 <div id="slider" style="width:200px;"></div>
@@ -47,8 +59,9 @@
 <div class="cmlTasks">
     <div class="cmlTask">
         <label class="cmlTaskName">Task 1</label>
-        <input class="cmlTaskTime">
+        <input id='98765' class="cmlTaskTime" value="10:00">
         <button class="cmlTaskStart" onclick="startTask(this)">Start</button>
+        <button class="cmlTaskFinish" onclick="finishTask(this)">Finish</button>
     </div>
 </div>
 <div>

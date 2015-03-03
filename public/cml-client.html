@@ -30,6 +30,9 @@
     socket.on('startCmlTask',function(cmlTask) {
         startCmlTask(cmlTask)
     });
+    socket.on('finishCmlTask',function(cmlTask) {
+        finishCmlTask(cmlTask)
+    });
     setInterval(function() {
         timeDiff += window.balance;
         var time = new Date().getTime()+timeDiff;

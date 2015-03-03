@@ -87,6 +87,10 @@ startCmlTask = (cmlTask) ->
   innerHtml = "<div class='quest_green'><span>"+cmlTask.name+"</span><span id=\""+cmlTask.id+"\" class='floatRight'>"+cmlTask.time+"</span></div>"
   $('#cmlTasks').append(innerHtml)
 
+finishCmlTask = (cmlTask) ->
+  $('#'+cmlTask.id).parent().remove()
+  cmlTask.finished = true for cmlTask in window.cmlTasksTimes when cmlTask.id = cmlTask.id
+
 ################
 #Util functions#
 ################
@@ -122,7 +126,7 @@ finishFlash = (intervalVar) ->
 
 countCmlTime = ->
   window.cmlTasksTimes =
-    for taskTime in window.cmlTasksTimes
+    for taskTime in window.cmlTasksTimes when taskTime.finished? != true
       newTime = taskTime.miliseconds - (100+window.balance)
       taskTimeObject = new Date(newTime)
       formattedTimeString = formatTwoDigitTime(taskTimeObject.getMinutes())+":"+formatTwoDigitTime(taskTimeObject.getSeconds())

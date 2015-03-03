@@ -53,7 +53,6 @@ server = app.listen(app.get('port'), ->
 
 #Socket creation
 io.listen(server)
-
 io.sockets.on('connection',(socket) ->
   console.log('Socket established')
   socket.on('clientConnected', (connectionCallback) ->
@@ -72,10 +71,14 @@ io.sockets.on('connection',(socket) ->
     console.log('CML Task started ' + JSON.stringify(cmlTask))
     timeArray = cmlTask.time.split(":")
     cmlTask.miliseconds = (timeArray[0] * 60000) + (timeArray[1]*1000)
-    cmlTask.id = Math.floor(Math.random()*10000)
     console.log('Recalculated ' + JSON.stringify(cmlTask))
     socket.broadcast.emit('startCmlTask',cmlTask)
   )
+  socket.on('cmlTaskFinished', (cmlTask)->
+    console.log('CML Task finished ' + JSON.stringify(cmlTask))
+    socket.broadcast.emit('finishCmlTask',cmlTask)
+  )
+
 )
 
 
