@@ -89,24 +89,31 @@ openLocation = function(locationId) {
   return $('#' + locationId).addClass('opened');
 };
 
-startCmlTask = function(cmlTask) {
-  var innerHtml;
+startCmlTask = function(cmlStartedTask) {
+  var cmlTask, innerHtml, _i, _len, _ref;
+  _ref = window.cmlTasksTimes;
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    cmlTask = _ref[_i];
+    if (cmlTask.id === cmlStartedTask.id) {
+      return null;
+    }
+  }
   window.cmlTasksTimes.push({
-    "id": cmlTask.id,
-    "miliseconds": cmlTask.miliseconds
+    "id": cmlStartedTask.id,
+    "miliseconds": cmlStartedTask.miliseconds
   });
-  innerHtml = "<div class='quest_green'><span>" + cmlTask.name + "</span><span id=\"" + cmlTask.id + "\" class='floatRight'>" + cmlTask.time + "</span></div>";
+  innerHtml = "<div class='quest_green'><span>" + cmlStartedTask.name + "</span><span id=\"" + cmlStartedTask.id + "\" class='floatRight'>" + cmlStartedTask.time + "</span></div>";
   return $('#cmlTasks').append(innerHtml);
 };
 
-finishCmlTask = function(cmlTask) {
-  var _i, _len, _ref, _results;
-  $('#' + cmlTask.id).parent().remove();
+finishCmlTask = function(cmlFinishedTask) {
+  var cmlTask, _i, _len, _ref, _results;
+  $('#' + cmlFinishedTask.id).parent().remove();
   _ref = window.cmlTasksTimes;
   _results = [];
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     cmlTask = _ref[_i];
-    if (cmlTask.id = cmlTask.id) {
+    if (cmlTask.id === cmlFinishedTask.id) {
       _results.push(cmlTask.finished = true);
     }
   }

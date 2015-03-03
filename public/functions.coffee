@@ -82,14 +82,15 @@ openLocation = (locationId) ->
   $('#'+locationId).removeClass('closed')
   $('#'+locationId).addClass('opened')
 
-startCmlTask = (cmlTask) ->
-  window.cmlTasksTimes.push({"id":cmlTask.id,"miliseconds":cmlTask.miliseconds})
-  innerHtml = "<div class='quest_green'><span>"+cmlTask.name+"</span><span id=\""+cmlTask.id+"\" class='floatRight'>"+cmlTask.time+"</span></div>"
+startCmlTask = (cmlStartedTask) ->
+  return null for cmlTask in window.cmlTasksTimes when cmlTask.id == cmlStartedTask.id
+  window.cmlTasksTimes.push({"id":cmlStartedTask.id,"miliseconds":cmlStartedTask.miliseconds})
+  innerHtml = "<div class='quest_green'><span>"+cmlStartedTask.name+"</span><span id=\""+cmlStartedTask.id+"\" class='floatRight'>"+cmlStartedTask.time+"</span></div>"
   $('#cmlTasks').append(innerHtml)
 
-finishCmlTask = (cmlTask) ->
-  $('#'+cmlTask.id).parent().remove()
-  cmlTask.finished = true for cmlTask in window.cmlTasksTimes when cmlTask.id = cmlTask.id
+finishCmlTask = (cmlFinishedTask) ->
+  $('#'+cmlFinishedTask.id).parent().remove()
+  cmlTask.finished = true for cmlTask in window.cmlTasksTimes when cmlTask.id == cmlFinishedTask.id
 
 ################
 #Util functions#
