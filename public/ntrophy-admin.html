@@ -24,14 +24,19 @@
                 $( "#timePercentage" ).text( ui.value  + '%');
             }
         });
-        $('.cmlTaskStart').click(function(){
-            var cmlTask = {
-                "name": $(this).prev().prev('.cmlTaskName').html(),
-                "time": $(this).prev('.cmlTaskTime').val()
-            }
-            socket.emit('cmlTaskStarted',cmlTask);
+        $('#addTask').click(function(){
+            var html = "<div class='cmlTask'><label class='cmlTaskName'>"+$(this).prev().val()+"</label><input class='cmlTaskTime'><button class='cmlTaskStart' onclick='startTask(this)'>Start</button></div>";
+            $(".cmlTask").append(html);
         });
     });
+
+    var startTask = function(context){
+        var cmlTask = {
+            "name": $(context).prev().prev('.cmlTaskName').html(),
+            "time": $(context).prev('.cmlTaskTime').val()
+        }
+        socket.emit('cmlTaskStarted',cmlTask);
+    };
 </script>
 <h3>Time manipulation</h3>
 <div id="slider" style="width:200px;"></div>
@@ -39,10 +44,17 @@
 <h3>Restart CML</h3>
 <button onclick="socket.emit('cmlRestart')">Restart CML</button>
 <h3>CML tasks</h3>
-<div class="cmlTask">
-    <label for="task1" class="cmlTaskName">Task 1</label>
-    <input id="task1" class="cmlTaskTime">
-    <button class="cmlTaskStart">Start</button>
+<div class="cmlTasks">
+    <div class="cmlTask">
+        <label class="cmlTaskName">Task 1</label>
+        <input class="cmlTaskTime">
+        <button class="cmlTaskStart" onclick="startTask(this)">Start</button>
+    </div>
+</div>
+<div>
+    <label for="newTask">Task name</label>
+    <input id="newTask">
+    <button id="addTask">Add</button>
 </div>
 </body>
 </html>

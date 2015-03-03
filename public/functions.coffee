@@ -34,7 +34,6 @@ $( ->
       when 13
         processCommand($('#command'))
   )
-  $('.sign').hide();
   inputFocus();
   window.cmlTasksTimes = new Array()
 )
@@ -106,9 +105,9 @@ parseTime = (time) ->
   return output;
 
 flash = (objectToFlash) ->
-  objectToFlash.toggle()
+  objectToFlash.toggleClass('hidden')
   setInterval(->
-    objectToFlash.toggle()
+    objectToFlash.toggleClass('hidden')
   ,700)
   
 # http://shebang.brandonmintern.com/foolproof-html-escaping-in-javascript/
@@ -119,7 +118,7 @@ escapeString = (str) ->
   
 finishFlash = (intervalVar) ->
   clearInterval(intervalVar)
-  $('.sign').hide()
+  $('.sign').addClass('hidden')
 
 countCmlTime = ->
   window.cmlTasksTimes =
@@ -130,6 +129,11 @@ countCmlTime = ->
       if formattedTimeString == '03:00'
         $('#'+taskTime.id).parent().removeClass('quest_green')
         $('#'+taskTime.id).parent().addClass('quest_red')
-      alert ('!!!!!') if formattedTimeString == '00:00'
       $('#'+taskTime.id).text(formattedTimeString)
+      if formattedTimeString == '00:00'
+        flash($('#'+taskTime.id).parent())
+        setTimeout(->
+          window.location.reload()
+        ,5000)
+        break
       {"miliseconds":newTime,"id":taskTime.id}

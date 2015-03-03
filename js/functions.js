@@ -30,7 +30,6 @@ $(function() {
         return processCommand($('#command'));
     }
   });
-  $('.sign').hide();
   inputFocus();
   return window.cmlTasksTimes = new Array();
 });
@@ -121,9 +120,9 @@ parseTime = function(time) {
 };
 
 flash = function(objectToFlash) {
-  objectToFlash.toggle();
+  objectToFlash.toggleClass('hidden');
   return setInterval(function() {
-    return objectToFlash.toggle();
+    return objectToFlash.toggleClass('hidden');
   }, 700);
 };
 
@@ -136,7 +135,7 @@ escapeString = function(str) {
 
 finishFlash = function(intervalVar) {
   clearInterval(intervalVar);
-  return $('.sign').hide();
+  return $('.sign').addClass('hidden');
 };
 
 countCmlTime = function() {
@@ -154,10 +153,14 @@ countCmlTime = function() {
         $('#' + taskTime.id).parent().removeClass('quest_green');
         $('#' + taskTime.id).parent().addClass('quest_red');
       }
-      if (formattedTimeString === '00:00') {
-        alert('!!!!!');
-      }
       $('#' + taskTime.id).text(formattedTimeString);
+      if (formattedTimeString === '00:00') {
+        flash($('#' + taskTime.id).parent());
+        setTimeout(function() {
+          return window.location.reload();
+        }, 5000);
+        break;
+      }
       _results.push({
         "miliseconds": newTime,
         "id": taskTime.id
