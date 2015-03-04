@@ -3,16 +3,15 @@ class Result
   @location
   @type
 
-codes = {
-  'jahoda':'2_a_3',
-  'boruvka':'2_b_2',
-  'malina':'2_c_3'}
-
 cmlDependentLocations = ['2_a_4','2_b_1','2_c_4','2_d_1','3_a_4','3_b_1','3_c_4','3_d_1']
 
 verifyCode = (code) ->
+  codes = require('../files/codes.json')
   return codes[code] ? false
 
+loadTaskInfo = (taskCode) ->
+  tasks = require('../files/tasks.json')
+  task.desc for task in tasks when task.code == taskCode
 
 module.exports.parseCommand = (command) ->
   result = new Result()
@@ -31,4 +30,10 @@ module.exports.parseCommand = (command) ->
       result.command = parsedCommand[1]
       result.success = if parsedCommand[1] == 'shutdown' then true else false
       result.locations = cmlDependentLocations
+    when 'view'
+      result.type = 'view'
+      result.taskName = parsedCommand[1]
+      info = loadTaskInfo(parsedCommand[1])
+      result.success = if info? then true else false
+      result.info = info
   return result

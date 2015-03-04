@@ -2,7 +2,7 @@
 express = require('express')
 io = require('socket.io')()
 basicAuth = require('basic-auth')
-
+multer  = require('multer')
 verificator = require('./lib/verificator.coffee')
 
 ## Set initial time balance
@@ -20,6 +20,18 @@ auth = (request, response, next) ->
 
 #Start App and routing
 app = express()
+app.use(multer({
+  dest: './files',
+  rename: (fieldname,filename) ->
+    return fieldname
+  onFileUploadStart: (file) ->
+    console.log("Uploading: "+ file.originalname)
+  onFileUploadData: (file, data, request, response) ->
+    response.fileContent = JSON.parse(data)
+  onFileUploadComplete: (file,request,response) ->
+    console.log("Finished: "+ file.originalname)
+    response.statusCode = 200
+}))
 
 app.get('/', (request,response) ->
   response.statusCode = 200
@@ -28,6 +40,9 @@ app.get('/', (request,response) ->
 app.get('/processCommand/:command', (request,response) ->
   response.statusCode = 200
   response.send(verificator.parseCommand(request.params.command)))
+
+app.post('/uploadFile', (request,response) ->
+    response.send(response.fileContent))
 
 app.get('/cml-client.html',auth,(request,response) ->
   response.sendFile(__dirname+'/public/cml-client.html'))

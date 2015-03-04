@@ -79,6 +79,13 @@ processResult = function(result) {
         } else {
           $('#command').val('unknown command');
         }
+        break;
+      case 'view':
+        if (result.success) {
+          $('#typed').append("<div class='terminalRow'> > " + escapeString(result.info) + "</div>");
+        } else {
+          $('#command').val('unknown task');
+        }
     }
     return $('#command').val('');
   }, 2000);

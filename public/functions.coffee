@@ -68,13 +68,18 @@ processResult = (result) ->
           ,4000)
       when 'system'
         if result.success && result.command == 'shutdown'
-            openLocation(location) for location in result.locations
-            $('.cmlState').text('STOPPED')
-            $('.cmlState').addClass('red')
-            $('#cmlTasks').text('')
+          openLocation(location) for location in result.locations
+          $('.cmlState').text('STOPPED')
+          $('.cmlState').addClass('red')
+          $('#cmlTasks').text('')
         else
           $('#command').val('unknown command')
-      #Clear input form
+      when 'view'
+        if result.success
+          $('#typed').append("<div class='terminalRow'> > " + escapeString(result.info) + "</div>")
+        else
+          $('#command').val('unknown task')
+    #Clear input form
     $('#command').val('')
   ,2000)
 

@@ -10,6 +10,7 @@
 <body>
 <script>
     var socket = io.connect();
+    var files;
 
     $(function() {
         $( "#slider" ).slider({
@@ -24,11 +25,45 @@
                 $( "#timePercentage" ).text( ui.value  + '%');
             }
         });
-        $('#addTask').click(function(){
-            var html = "<div class='cmlTask'><label class='cmlTaskName'>"+$(this).prev().val()+"</label><input id='"+generateID()+"' class='cmlTaskTime' value='10:00'><button class='cmlTaskStart' onclick='startTask(this)'>Start</button><button class='cmlTaskFinish' onclick='finishTask(this)'>Finish</button></div>";
-            $(".cmlTasks").append(html);
+        $('#codesFile').on('change', function(e){
+            files = e.target.files;
+        });
+        $('#submitCodes').click(function(){
+            uploadFiles('codes');
+        });
+        $('#tasksFile').on('change', function(e){
+            files = e.target.files;
+        });
+        $('#submitTasks').click(function(){
+            uploadFiles('tasks');
         });
     });
+
+    var uploadFiles = function(type) {
+        var formData = new FormData();
+        formData.append(type, files[0]);
+        files = null;
+        $.ajax({
+            url: '/uploadFile/',
+            type: 'POST',
+            data: formData,
+            cache: false,
+            processData: false, // Don't process the files
+            contentType: false,
+            success: function(data, textStatus, jqXHR)
+            {
+                $(".cmlTask").remove();
+                $.each(data,function(key,value){
+                    addTask(value.name,value.code,value.time);
+                });
+            }
+        });
+    };
+
+    var addTask = function(name,code,time){
+        var html = "<div class='cmlTask'><label class='cmlTaskName'>"+name+" ("+code+") </label><input id='"+generateID()+"' class='cmlTaskTime' value='"+time+"'><button class='cmlTaskStart' onclick='startTask(this)'>Start</button><button class='cmlTaskFinish' onclick='finishTask(this)'>Finish</button></div>";
+        $(".cmlTasks").append(html);
+    };
 
     var startTask = function(context){
         var cmlTask = {
@@ -57,17 +92,16 @@
 <button onclick="socket.emit('cmlRestart')">Restart CML</button>
 <h3>CML tasks</h3>
 <div class="cmlTasks">
-    <div class="cmlTask">
-        <label class="cmlTaskName">Task 1</label>
-        <input id='98765' class="cmlTaskTime" value="10:00">
-        <button class="cmlTaskStart" onclick="startTask(this)">Start</button>
-        <button class="cmlTaskFinish" onclick="finishTask(this)">Finish</button>
-    </div>
 </div>
+<h3>Upload codes</h3>
 <div>
-    <label for="newTask">Task name</label>
-    <input id="newTask">
-    <button id="addTask">Add</button>
+    <input type="file" id="codesFile">
+    <button id="submitCodes">Submit codes</button>
+</div>
+<h3>Upload CML tasks</h3>
+<div>
+    <input type="file" id="tasksFile">
+    <button id="submitTasks">Submit tasks</button>
 </div>
 </body>
 </html>
