@@ -219,6 +219,7 @@ countCmlTime = function() {
 };
 
 reloadPage = function() {
+  document.cookie = "timeDiff=" + timeDiff;
   socket.emit('cmlRestarted');
   return window.location.reload();
 };

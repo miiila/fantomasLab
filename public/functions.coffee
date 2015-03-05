@@ -157,5 +157,6 @@ countCmlTime = ->
       {"miliseconds":newTime,"id":taskTime.id}
 
 reloadPage = ->
+  document.cookie="timeDiff="+(timeDiff);
   socket.emit('cmlRestarted')
   window.location.reload()

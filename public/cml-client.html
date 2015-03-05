@@ -11,10 +11,14 @@
 <body>
 
 <script>
+    timeDiffCookie = document.cookie.split('=');
+    var timeDiff = 0;
+    if (timeDiffCookie[0] == 'timeDiff') {
+        var timeDiff = parseInt(timeDiffCookie[1]);
+    }
     var currentTime = new Date().getTime();
     window.balance = 0;
-    var timeDiff = 0;
-    var socket = io.connect(window.location.hostname);
+    var socket = io.connect(window.location.hostname+":5000");
     socket.on('connect',function() {
         $('.socket').text('Connected');
         socket.emit('clientConnected',function(data){
