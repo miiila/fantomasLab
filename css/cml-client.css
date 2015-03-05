@@ -322,14 +322,14 @@ input {
 }
 
 #granted {
-    background: rgba(41,221,51,0.3);
+    background: #174d1a;
     border-color: #29DD33;
     color: #29DD33;
 }
 
 
 #denied {
-    background: rgba(136,0,0,0.3);
-    border-color: #880000;
-    color: #880000;
+    background: #330b0b;
+    border-color: #d30000;
+    color: #d30000;
 }
