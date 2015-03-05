@@ -51,14 +51,30 @@ processCommand = function(data) {
   if (command === '') {
     return $('#typed').append("<div class='terminalRow'> > missing command </div>");
   } else {
-    $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>");
-    return $.ajax({
-      type: 'GET',
-      url: '/processCommand/' + command,
-      beforeSend: function() {
-        return $('#command').val('Processing...');
+    if (command === 'cml shutdown') {
+      $('#command').val('');
+      $('#typed').append("<div class='terminalRow'> Enter password: </div>");
+      return window.cmlShutdown = true;
+    } else {
+      if (window.cmlShutdown === true && command !== 'supermegatajnyheslo') {
+        $('#typed').append("<div class='terminalRow'> WRONG CML PASSWORD </div>");
+        window.cmlShutdown = false;
+        return $('#command').val('');
+      } else {
+        if (command === 'supermegatajnyheslo') {
+          command = 'cml shutdown';
+        }
+        window.cmlShutdown = false;
+        $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>");
+        return $.ajax({
+          type: 'GET',
+          url: '/processCommand/' + command,
+          beforeSend: function() {
+            return $('#command').val('Processing...');
+          }
+        }).done(processResult);
       }
-    }).done(processResult);
+    }
   }
 };
 

@@ -49,13 +49,25 @@ processCommand = (data) ->
   if (command == '')
     $('#typed').append("<div class='terminalRow'> > missing command </div>")
   else
-    $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>")
-    $.ajax(
-      type: 'GET',
-      url: '/processCommand/' + command,
-      beforeSend: ->
-        $('#command').val('Processing...')
-    ).done(processResult)
+    if (command == 'cml shutdown')
+      $('#command').val('')
+      $('#typed').append("<div class='terminalRow'> Enter password: </div>")
+      window.cmlShutdown = true
+    else
+      if(window.cmlShutdown == true and command != 'supermegatajnyheslo')
+        $('#typed').append("<div class='terminalRow'> WRONG CML PASSWORD </div>")
+        window.cmlShutdown = false
+        $('#command').val('')
+      else
+        command = 'cml shutdown' if command == 'supermegatajnyheslo'
+        window.cmlShutdown = false
+        $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>")
+        $.ajax(
+          type: 'GET',
+          url: '/processCommand/' + command,
+          beforeSend: ->
+            $('#command').val('Processing...')
+        ).done(processResult)
 
 processResult = (result) ->
   setTimeout(->
