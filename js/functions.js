@@ -54,17 +54,21 @@ processCommand = function(data) {
     if (command === 'cml shutdown') {
       $('#command').val('');
       $('#typed').append("<div class='terminalRow'> Enter password: </div>");
-      return window.cmlShutdown = true;
+      window.cmlShutdown = true;
+      return $('#command').addClass('invisible');
     } else {
       if (window.cmlShutdown === true && command !== 'supermegatajnyheslo') {
         $('#typed').append("<div class='terminalRow'> WRONG CML PASSWORD </div>");
         window.cmlShutdown = false;
+        $('#command').removeClass('invisible');
         return $('#command').val('');
       } else {
         if (command === 'supermegatajnyheslo') {
           command = 'cml shutdown';
+          document.getElementById("audioShutdown").play();
+          $('#command').removeClass('invisible');
+          window.cmlShutdown = false;
         }
-        window.cmlShutdown = false;
         $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>");
         return $.ajax({
           type: 'GET',
@@ -85,12 +89,14 @@ processResult = function(result) {
       case 'open':
         if (result.success) {
           flashSign = flash($('#granted'));
+          document.getElementById("audioGranted").play();
           openLocation(result.location);
           if (result.finished != null) {
             $('#areal').css('background-image', 'url(../images/areal_exit.png)');
           }
         } else {
           flashSign = flash($('#denied'));
+          document.getElementById("audioDenied").play();
         }
         setTimeout(function() {
           return finishFlash(flashSign);
@@ -235,9 +241,12 @@ countCmlTime = function() {
 };
 
 reloadPage = function() {
-  document.cookie = "timeDiff=" + timeDiff;
   socket.emit('cmlRestarted');
-  return window.location.reload();
+  document.cookie = "timeDiff=" + timeDiff;
+  document.getElementById("audioRestart").play();
+  return setTimeout(function() {
+    return window.location.reload();
+  }, 2000);
 };
 
 //# sourceMappingURL=functions.js.map

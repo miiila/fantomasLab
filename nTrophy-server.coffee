@@ -62,6 +62,9 @@ app.get('/*.css', (request,response) ->
 app.get('/*.png', (request,response) ->
   response.sendFile(__dirname+'/'+request.params[0]+'.png'))
 
+app.get('/*.ogg', (request,response) ->
+  response.sendFile(__dirname+'/audio/'+request.params[0]+'.ogg'))
+
 app.set('port', (process.env.PORT || 5000));
 server = app.listen(app.get('port'), ->
   console.log('Server started at port ' +  + app.get('port')))

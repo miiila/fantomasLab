@@ -4,6 +4,7 @@ body
     background:#111;
     margin-top:20px;
     font-family:Courier;
+    cursor: none;
     }
     
 .red 
@@ -26,6 +27,10 @@ body
 
 .hidden {
     visibility: hidden;
+}
+
+.invisible {
+    font-size: 0;
 }
     
 /* ========== Cas ========== */

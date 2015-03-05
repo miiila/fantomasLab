@@ -53,14 +53,19 @@ processCommand = (data) ->
       $('#command').val('')
       $('#typed').append("<div class='terminalRow'> Enter password: </div>")
       window.cmlShutdown = true
+      $('#command').addClass('invisible')
     else
       if(window.cmlShutdown == true and command != 'supermegatajnyheslo')
         $('#typed').append("<div class='terminalRow'> WRONG CML PASSWORD </div>")
         window.cmlShutdown = false
+        $('#command').removeClass('invisible')
         $('#command').val('')
       else
-        command = 'cml shutdown' if command == 'supermegatajnyheslo'
-        window.cmlShutdown = false
+        if command == 'supermegatajnyheslo'
+          command = 'cml shutdown'
+          document.getElementById("audioShutdown").play()
+          $('#command').removeClass('invisible')
+          window.cmlShutdown = false
         $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>")
         $.ajax(
           type: 'GET',
@@ -75,11 +80,13 @@ processResult = (result) ->
       when 'open'
         if result.success
           flashSign = flash($('#granted'))
+          document.getElementById("audioGranted").play()
           openLocation(result.location)
           if result.finished?
             $('#areal').css('background-image', 'url(../images/areal_exit.png)')
         else
           flashSign = flash($('#denied'))
+          document.getElementById("audioDenied").play()
         setTimeout(->
             finishFlash(flashSign)
           ,4000)
@@ -169,6 +176,9 @@ countCmlTime = ->
       {"miliseconds":newTime,"id":taskTime.id}
 
 reloadPage = ->
-  document.cookie="timeDiff="+(timeDiff);
   socket.emit('cmlRestarted')
-  window.location.reload()
+  document.cookie="timeDiff="+(timeDiff);
+  document.getElementById("audioRestart").play()
+  setTimeout(()->
+    window.location.reload()
+  ,2000)
