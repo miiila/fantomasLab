@@ -63,7 +63,7 @@ processCommand = function(data) {
         $('#command').removeClass('invisible');
         return $('#command').val('');
       } else {
-        if (command === 'supermegatajnyheslo') {
+        if (command === 'supermegatajnyheslo' && window.cmlShutdown === true) {
           command = 'cml shutdown';
           document.getElementById("audioShutdown").play();
           $('#command').removeClass('invisible');

@@ -61,7 +61,7 @@ processCommand = (data) ->
         $('#command').removeClass('invisible')
         $('#command').val('')
       else
-        if command == 'supermegatajnyheslo'
+        if command == 'supermegatajnyheslo' and window.cmlShutdown == true
           command = 'cml shutdown'
           document.getElementById("audioShutdown").play()
           $('#command').removeClass('invisible')
