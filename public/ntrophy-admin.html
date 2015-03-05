@@ -13,6 +13,13 @@
     var files;
 
     $(function() {
+        socket.emit('adminConnected',function(data){
+            if(data.hasOwnProperty('tasks')) {
+                $.each(data.tasks, function (key, value) {
+                    addTask(value.name, value.code, value.time);
+                });
+            }
+        });
         $( "#slider" ).slider({
             min: 0,
             max: 200,
@@ -50,18 +57,22 @@
             cache: false,
             processData: false, // Don't process the files
             contentType: false,
-            success: function(data, textStatus, jqXHR)
-            {
-                $(".cmlTask").remove();
-                $.each(data,function(key,value){
-                    addTask(value.name,value.code,value.time);
-                });
+            success: function(data, textStatus, jqXHR) {
+                if (type == 'tasks') {
+                    $(".cmlTask").remove();
+                    $.each(data, function (key, value) {
+                        addTask(value.name, value.code, value.time);
+                    });
+                }
+                else {
+                    alert('File submitted');
+                }
             }
         });
     };
 
     var addTask = function(name,code,time){
-        var html = "<div class='cmlTask'><label class='cmlTaskName'>"+name+" ("+code+") </label><input id='"+generateID()+"' class='cmlTaskTime' value='"+time+"'><button class='cmlTaskStart' onclick='startTask(this)'>Start</button><button class='cmlTaskFinish' onclick='finishTask(this)'>Finish</button></div>";
+        var html = "<div class='cmlTask'><label class='cmlTaskName'>"+name+"</label><input id='"+code+"' class='cmlTaskTime' value='"+time+"'><button class='cmlTaskStart' onclick='startTask(this)'>Start</button><button class='cmlTaskFinish' onclick='finishTask(this)'>Finish</button></div>";
         $(".cmlTasks").append(html);
     };
 

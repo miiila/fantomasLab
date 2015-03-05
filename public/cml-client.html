@@ -25,7 +25,7 @@
         window.balance = data.timeBalance;
     });
     socket.on('cmlRestart',function() {
-        window.location.reload();
+        reloadPage()
     });
     socket.on('startCmlTask',function(cmlTask) {
         startCmlTask(cmlTask)

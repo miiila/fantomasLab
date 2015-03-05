@@ -73,6 +73,11 @@ io.sockets.on('connection',(socket) ->
   socket.on('clientConnected', (connectionCallback) ->
     connectionCallback({'timeBalance':balance})
     )
+  socket.on('adminConnected', (connectionCallback) ->
+    tasks = verificator.getTasks()
+    console.log(tasks)
+    connectionCallback({'tasks':tasks})
+  )
   socket.on('timeBalanceChange',(data) ->
     console.log('Time balance change requested: ' + data)
     balance = data.percentage - 100
@@ -92,6 +97,9 @@ io.sockets.on('connection',(socket) ->
   socket.on('cmlTaskFinished', (cmlTask)->
     console.log('CML Task finished ' + JSON.stringify(cmlTask))
     socket.broadcast.emit('finishCmlTask',cmlTask)
+  )
+  socket.on('cmlRestarted',->
+    verificator.resetPuzzleLocations()
   )
 
 )

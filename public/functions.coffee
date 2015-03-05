@@ -22,17 +22,17 @@ $( ->
       inputFocus()
   )
 
-
   $(document).click( ->
     inputFocus()
   )
-  $(document).keypress((event) ->
-    switch event.keyCode
-      when 9
+  $(document).keydown((event) ->
+    keyCode = event.keyCode
+    switch
+      when keyCode == 13
+        processCommand($('#command'))
+      when (keyCode in [9..36] or keyCode > 90) and keyCode != 32
         event.preventDefault();
         inputFocus();
-      when 13
-        processCommand($('#command'))
   )
   inputFocus();
   window.cmlTasksTimes = new Array()
@@ -61,6 +61,8 @@ processResult = (result) ->
         if result.success
           flashSign = flash($('#granted'))
           openLocation(result.location)
+          if result.finished?
+            $('#areal').css('background-image', 'url(../images/areal_exit.png)')
         else
           flashSign = flash($('#denied'))
         setTimeout(->
@@ -79,7 +81,11 @@ processResult = (result) ->
           $('#typed').append("<div class='terminalRow'> > " + escapeString(result.info) + "</div>")
         else
           $('#command').val('unknown task')
-    #Clear input form
+      else
+        $('#command').val('unknown command')
+  ,1000)
+  #Clear input form
+  setTimeout(->
     $('#command').val('')
   ,2000)
 
@@ -90,7 +96,7 @@ openLocation = (locationId) ->
 startCmlTask = (cmlStartedTask) ->
   return null for cmlTask in window.cmlTasksTimes when cmlTask.id == cmlStartedTask.id
   window.cmlTasksTimes.push({"id":cmlStartedTask.id,"miliseconds":cmlStartedTask.miliseconds})
-  innerHtml = "<div class='quest_green'><span>"+cmlStartedTask.name+"</span><span id=\""+cmlStartedTask.id+"\" class='floatRight'>"+cmlStartedTask.time+"</span></div>"
+  innerHtml = "<div class='quest_green'><span>"+cmlStartedTask.name+"<br /> ("+cmlStartedTask.id+")</span><span id=\""+cmlStartedTask.id+"\" class='floatRight'>"+cmlStartedTask.time+"</span></div>"
   $('#cmlTasks').append(innerHtml)
 
 finishCmlTask = (cmlFinishedTask) ->
@@ -143,7 +149,11 @@ countCmlTime = ->
       if formattedTimeString == '00:00'
         flash($('#'+taskTime.id).parent())
         setTimeout(->
-          window.location.reload()
+          reloadPage()
         ,5000)
         break
       {"miliseconds":newTime,"id":taskTime.id}
+
+reloadPage = ->
+  socket.emit('cmlRestarted')
+  window.location.reload()

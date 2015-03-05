@@ -1,0 +1,14 @@
+[
+    {
+  	"name":"Zavři dveře",
+  	"code":"door",
+  	"time": "0:25", 
+  	"desc":"Zavři okno v místnosti A11."
+  },
+  {
+  	"name":"Najdi Jupíčerta",
+    "code":"jupicert",
+  	"time": "3:25", 
+  	"desc":"Vyhledej organizátora jménem Jupíčert a pozdrav ho."
+  }
+]
