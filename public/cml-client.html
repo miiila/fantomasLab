@@ -18,7 +18,7 @@
     }
     var currentTime = new Date().getTime();
     window.balance = 0;
-    var socket = io.connect(window.location.hostname+":5000");
+    var socket = io.connect(window.location.hostname);
     socket.on('connect',function() {
         $('.socket').text('Connected');
         socket.emit('clientConnected',function(data){
