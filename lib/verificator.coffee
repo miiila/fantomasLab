@@ -39,7 +39,7 @@ module.exports.parseCommand = (command) ->
       result.type = 'view'
       result.taskName = parsedCommand[1]
       info = loadTaskInfo(parsedCommand[1])
-      result.success = if info? then true else false
+      result.success = if info?.length then true else false
       result.info = info
   return result
 

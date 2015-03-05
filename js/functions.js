@@ -48,18 +48,22 @@ inputFocus = function() {
 processCommand = function(data) {
   var command;
   command = data.val();
-  $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>");
-  return $.ajax({
-    type: 'GET',
-    url: '/processCommand/' + command,
-    beforeSend: function() {
-      return $('#command').val('Processing...');
-    }
-  }).done(processResult);
+  if (command === '') {
+    return $('#typed').append("<div class='terminalRow'> > missing command </div>");
+  } else {
+    $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>");
+    return $.ajax({
+      type: 'GET',
+      url: '/processCommand/' + command,
+      beforeSend: function() {
+        return $('#command').val('Processing...');
+      }
+    }).done(processResult);
+  }
 };
 
 processResult = function(result) {
-  setTimeout(function() {
+  return setTimeout(function() {
     var flashSign, location, _i, _len, _ref;
     switch (result.type) {
       case 'open':
@@ -72,9 +76,10 @@ processResult = function(result) {
         } else {
           flashSign = flash($('#denied'));
         }
-        return setTimeout(function() {
+        setTimeout(function() {
           return finishFlash(flashSign);
         }, 4000);
+        break;
       case 'system':
         if (result.success && result.command === 'shutdown') {
           _ref = result.locations;
@@ -84,23 +89,21 @@ processResult = function(result) {
           }
           $('.cmlState').text('STOPPED');
           $('.cmlState').addClass('red');
-          return $('#cmlTasks').text('');
+          $('#cmlTasks').text('');
         } else {
-          return $('#command').val('unknown command');
+          $('#typed').append("<div class='terminalRow'> > unknown command</div>");
         }
         break;
       case 'view':
         if (result.success) {
-          return $('#typed').append("<div class='terminalRow'> > " + escapeString(result.info) + "</div>");
+          $('#typed').append("<div class='terminalRow'> > " + escapeString(result.info) + "</div>");
         } else {
-          return $('#command').val('unknown task');
+          $('#typed').append("<div class='terminalRow'> > unknown task</div>");
         }
         break;
       default:
-        return $('#command').val('unknown command');
+        $('#typed').append("<div class='terminalRow'> > unknown command</div>");
     }
-  }, 1000);
-  return setTimeout(function() {
     return $('#command').val('');
   }, 2000);
 };

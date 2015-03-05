@@ -46,13 +46,16 @@ inputFocus = ->
 #################
 processCommand = (data) ->
   command = data.val()
-  $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>")
-  $.ajax(
-    type: 'GET',
-    url: '/processCommand/' + command,
-    beforeSend: ->
-      $('#command').val('Processing...')
-  ).done(processResult)
+  if (command == '')
+    $('#typed').append("<div class='terminalRow'> > missing command </div>")
+  else
+    $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>")
+    $.ajax(
+      type: 'GET',
+      url: '/processCommand/' + command,
+      beforeSend: ->
+        $('#command').val('Processing...')
+    ).done(processResult)
 
 processResult = (result) ->
   setTimeout(->
@@ -75,19 +78,18 @@ processResult = (result) ->
           $('.cmlState').addClass('red')
           $('#cmlTasks').text('')
         else
-          $('#command').val('unknown command')
+          $('#typed').append("<div class='terminalRow'> > unknown command</div>")
       when 'view'
         if result.success
           $('#typed').append("<div class='terminalRow'> > " + escapeString(result.info) + "</div>")
         else
-          $('#command').val('unknown task')
+          $('#typed').append("<div class='terminalRow'> > unknown task</div>")
       else
-        $('#command').val('unknown command')
-  ,1000)
-  #Clear input form
-  setTimeout(->
+        $('#typed').append("<div class='terminalRow'> > unknown command</div>")
+    #Clear input form
     $('#command').val('')
   ,2000)
+
 
 openLocation = (locationId) ->
   $('#'+locationId).removeClass('closed')
