@@ -4,9 +4,8 @@ class Result
   @location
   @type
 
-#puzzleLocations = ['2_a_1','2_a_2','2_a_3','2_b_2','2_b_3','2_b_4','2_c_1','2_c_2','2_c_3','2_d_2','2_d_3','2_d_4','3_a_1','3_a_2','3_a_3','3_b_2','3_b_3','3_b_4','3_c_1','3_c_2','3_c_3','3_d_2','3_d_3','3_d_4']
-puzzleLocations = ['2_a_3','2_b_2','2_c_3']
-cmlDependentLocations = ['2_a_4','2_b_1','2_c_4','2_d_1','3_a_4','3_b_1','3_c_4','3_d_1']
+puzzleLocations = ['2_a_1','2_a_2','2_a_3','2_a_4','2_b_1','2_b_2','2_b_3','2_b_4','2_c_1','2_c_2','2_c_3','2_c_4','2_d_1','2_d_2','2_d_3','2_d_4','3_a_1','3_a_2','3_a_3','3_a_4','3_b_1','3_b_2','3_b_3','3_b_4','3_c_1','3_c_2','3_c_3','3_c_4','3_d_1','3_d_2','3_d_3','3_d_4']
+cmlDependentLocations = ['2_a_0','2_b_0','2_c_0','2_d_0','3_a_0','3_b_0','3_c_0','3_d_0']
 
 verifyCode = (code) ->
   codes = readJson("./files/codes.json")
@@ -53,5 +52,5 @@ isFinished = ->
   puzzleLocations.length == 0
 
 module.exports.resetPuzzleLocations = ->
-  puzzleLocations = ['2_a_3','2_b_2','2_c_3']
+  puzzleLocations = ['2_a_1','2_a_2','2_a_3','2_b_2','2_b_3','2_b_4','2_c_1','2_c_2','2_c_3','2_d_2','2_d_3','2_d_4','3_a_1','3_a_2','3_a_3','3_b_2','3_b_3','3_b_4','3_c_1','3_c_2','3_c_3','3_d_2','3_d_3','3_d_4']
 

@@ -55,13 +55,13 @@ processCommand = (data) ->
       window.cmlShutdown = true
       $('#command').addClass('invisible')
     else
-      if(window.cmlShutdown == true and command != 'supermegatajnyheslo')
+      if(window.cmlShutdown == true and command != 'rvzbtlyocmshfquafadipxaacabaekdewaanjg')
         $('#typed').append("<div class='terminalRow'> WRONG CML PASSWORD </div>")
         window.cmlShutdown = false
         $('#command').removeClass('invisible')
         $('#command').val('')
       else
-        if command == 'supermegatajnyheslo' and window.cmlShutdown == true
+        if command == 'rvzbtlyocmshfquafadipxaacabaekdewaanjg' and window.cmlShutdown == true
           command = 'cml shutdown'
           document.getElementById("audioShutdown").play()
           $('#command').removeClass('invisible')
@@ -111,8 +111,11 @@ processResult = (result) ->
 
 
 openLocation = (locationId) ->
-  $('#'+locationId).removeClass('closed')
-  $('#'+locationId).addClass('opened')
+  if (locationId.slice(-1) == '4')
+    $('#'+locationId).html(' SECTOR CLEAR')
+  else
+    $('#'+locationId).removeClass('closed')
+    $('#'+locationId).addClass('opened')
 
 startCmlTask = (cmlStartedTask) ->
   return null for cmlTask in window.cmlTasksTimes when cmlTask.id == cmlStartedTask.id

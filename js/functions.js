@@ -57,13 +57,13 @@ processCommand = function(data) {
       window.cmlShutdown = true;
       return $('#command').addClass('invisible');
     } else {
-      if (window.cmlShutdown === true && command !== 'supermegatajnyheslo') {
+      if (window.cmlShutdown === true && command !== 'rvzbtlyocmshfquafadipxaacabaekdewaanjg') {
         $('#typed').append("<div class='terminalRow'> WRONG CML PASSWORD </div>");
         window.cmlShutdown = false;
         $('#command').removeClass('invisible');
         return $('#command').val('');
       } else {
-        if (command === 'supermegatajnyheslo' && window.cmlShutdown === true) {
+        if (command === 'rvzbtlyocmshfquafadipxaacabaekdewaanjg' && window.cmlShutdown === true) {
           command = 'cml shutdown';
           document.getElementById("audioShutdown").play();
           $('#command').removeClass('invisible');
@@ -131,8 +131,12 @@ processResult = function(result) {
 };
 
 openLocation = function(locationId) {
-  $('#' + locationId).removeClass('closed');
-  return $('#' + locationId).addClass('opened');
+  if (locationId.slice(-1) === '4') {
+    return $('#' + locationId).html(' SECTOR CLEAR');
+  } else {
+    $('#' + locationId).removeClass('closed');
+    return $('#' + locationId).addClass('opened');
+  }
 };
 
 startCmlTask = function(cmlStartedTask) {

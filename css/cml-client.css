@@ -198,7 +198,7 @@ body
 
 /* ========== Chodby =========== */
 
-#left_top_corridor
+.left_top_corridor
 {
  
     height:25px;
@@ -206,7 +206,7 @@ body
     float:left;
     margin-left:32px;
     }
-#right_top_corridor
+.right_top_corridor
 {
    
     height:25px;
@@ -215,7 +215,7 @@ body
     margin-left:119px;
     }
     
-#left_bottom_corridor
+.left_bottom_corridor
 {
     margin-top:57px;
     height:25px;
@@ -223,8 +223,8 @@ body
     float:left;
     margin-left:32px;
     }
-    
-#right_bottom_corridor
+
+.right_bottom_corridor
 {
     margin-top:57px;
     height:25px;
