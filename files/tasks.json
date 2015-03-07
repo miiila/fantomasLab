@@ -1,14 +1,46 @@
 [
-    {
-  	"name":"Zavři dveře",
-  	"code":"door",
-  	"time": "0:25", 
-  	"desc":"Zavři okno v místnosti A11."
-  },
-  {
-  	"name":"Najdi Jupíčerta",
-    "code":"jupicert",
-  	"time": "3:25", 
-  	"desc":"Vyhledej organizátora jménem Jupíčert a pozdrav ho."
-  }
+
+{"name":"Najdi Jupíčerta",
+"code":"jupicert",
+"time":"10:00","desc":"Vyhledej organizátora jménem Jupíčert a pozdrav ho."
+},
+{"name":"Bob hledá Bobka","code":"bobek","time":"10:00","desc":"Fantomasovo PR oddělení je nekompletní! Vedoucí oddělení Bob postrádá svého kolegu. Najdi jednoho z organizátorů, kterému se říká Bobek, a vyřiď mu, ať Bobovi zavolá."
+}
+,
+{"name":"Nedostatek energie!","code":"energie","time":"15:00","desc":"Laboratoř má výpadky energie. Na rotopedu vygenerujte alespon 50kJ"
+}
+,
+{"name":"Matematické výpočty","code":"sudoku","time":"20:00","desc":"Z laboratoře fyziky přišlo velké kvantum požadavků na výpočty. Vypočítejte 2ks SuDoKu (dá vám je vědec u CML)"
+}
+,
+{"name":"Zašifrovaný obraz","code":"obraz","time":"30:00","desc":"V biologické laboratoři kamery s nočním vidéním sejmuli neznámý obraz. Je třeba jej rozkrýt. Vyluštěte jeden griddler (dá vám jej vědec u CML)"
+}
+,
+{"name":"Příprava na Vánoce","code":"prskavky","time":"10:00","desc":"Fantomas si vymyslel Vánoce pod vodou... A bez prskavek se prý nemáme ukazovat. Obalte důkladně 10 prskavek izolepou."
+}
+,
+{"name":"Daňové přiznání","code":"dane","time":"30:00","desc":"Je to tady! I mocný Fantomas se musí podrobit finančnímu úřadu a odevzdat své daňové přiznání. Nachystejte a vyplňte daňové přiznání (podklady vám dodá vědec u CML)"
+}
+,
+{"name":"Přesuny zásob","code":"zasoby","time":"15:00","desc":"Ve skladu logiky a robotiky je třeba přesunout zásoby. Jděte do učebny logiky a přesuňte zásoby "
+}
+,
+{"name":"Zavři okno","code":"window","time":"0:25","desc":"Zavři okno v místnosti A9."
+}
+,
+{"name":"Úklid Chemie","code":"chemie","time":"15:00","desc":"Fantomas má rád čistotu a pořádek. V počtu alespoň 4 lidi běžte do laboratoře chemie a pod vedením jedhono z vědců ukliďte celou místnost"
+}
+,
+{"name":"Úklid Fyziky","code":"fyzika","time":"15:00","desc":"Fantomas má rád čistotu a pořádek. V počtu alespoň 4 lidi běžte do laboratoře fyziky a pod vedením jedhono z vědců ukliďte celou místnost"
+}
+,
+{"name":"Úklid Biologie","code":"biologie","time":"15:00","desc":"Fantomas má rád čistotu a pořádek. V počtu alespoň 4 lidi běžte do laboratoře biologie a pod vedením jedhono z vědců ukliďte celou místnost"
+}
+,
+{"name":"Úklid Logiky","code":"logika","time":"15:00","desc":"Fantomas má rád čistotu a pořádek. V počtu alespoň 4 lidi běžte do laboratoře logiky a pod vedením jedhono z vědců ukliďte celou místnost"
+}
+,
+{"name":"Popelka","code":"popelka","time":"30:00","desc":"V laboratoři robotiky mají problém. CML běžně třídí součástky a rozmontovává stroje. CML je však vypnuté a tak jeho úkol musíte zastát vy. Pošlete 4 lidí do laboratoře logiky"
+}
+
 ]
