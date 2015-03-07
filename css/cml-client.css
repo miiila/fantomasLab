@@ -295,7 +295,7 @@ body
     display: none;
 }
 
-.terminalRow:nth-last-child(-n+9) {
+.terminalRow:nth-last-child(-n+4) {
     display: block;
 }
 
