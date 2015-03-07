@@ -9,8 +9,28 @@
 </head>
 <body>
 <script>
+    var formatTime, formatTwoDigitTime;
+
+    formatTime = function(number, places) {
+        if (number < (Math.pow(10, places - 1))) {
+            if (number.length !== places) {
+                number = '0' + number;
+            }
+        }
+        return number;
+    };
+
+    formatTwoDigitTime = function(number) {
+        return formatTime(number, 2);
+    };
+
+
     var socket = io.connect();
     var files;
+    var timeBalance = 0;
+    var changeTime = new Date().getTime();
+    var timeDiff = 0;
+    var newChangeTime;
 
     $(function() {
         socket.emit('adminConnected',function(data){
@@ -27,9 +47,26 @@
             value: 100,
             stop: function( event, ui ) {
                 socket.emit('timeBalanceChange',{'percentage':ui.value});
+                timeBalance = ui.value - 100;
             },
             slide: function( event, ui ) {
                 $( "#timePercentage" ).text( ui.value  + '%');
+                $( "#masterTimeSlider").slider({
+                    value: ui.value
+                });
+                $( "#masterTimePercentage" ).text( ui.value  + '%');
+            }
+        });
+        $( "#masterTimeSlider" ).slider({
+            min: 0,
+            max: 200,
+            step: 10,
+            value: 100,
+            stop: function( event, ui ) {
+                //timeBalance = ui.value;
+            },
+            slide: function( event, ui ) {
+                $( "#masterTimePercentage" ).text( ui.value  + '%');
             }
         });
         $('#codesFile').on('change', function(e){
@@ -44,7 +81,40 @@
         $('#submitTasks').click(function(){
             uploadFiles('tasks');
         });
+
+        setInterval(function() {
+            timeDiff += timeBalance;
+            var time = new Date().getTime()+timeDiff;
+            $('.masterTime').text(new Date(time).toLocaleTimeString());
+        },100);
+
+        $('#realToMaster').click(function() {
+            var realTime = $('#realTimeInput').val();
+            var diffToNow = parseTime(realTime).getTime() - new Date().getTime();
+            var ratio = $( "#masterTimeSlider").slider('value') / 100;
+            var masterTime = parseTime($('.masterTime').text()).getTime();
+            var resultTime = new Date(masterTime + (diffToNow * ratio));
+            $('#masterTimeInput').val(formatTwoDigitTime(resultTime.getHours()) + ':' + formatTwoDigitTime(resultTime.getMinutes()));
+        });
+
+        $('#masterToReal').click(function() {
+            var masterTime = $('#masterTimeInput').val();
+            var diffToNow = parseTime(masterTime).getTime() - parseTime($('.masterTime').text()).getTime();
+            var ratio = $( "#masterTimeSlider").slider('value') / 100;
+            var realTime = new Date().getTime();
+            var resultTime = new Date(realTime + (diffToNow / ratio));
+            $('#realTimeInput').val(formatTwoDigitTime(resultTime.getHours()) + ':' + formatTwoDigitTime(resultTime.getMinutes()));
+        });
     });
+
+    var parseTime = function(timeString) {
+        var timeArray = timeString.split(':');
+        var time = new  Date();
+        time.setHours(timeArray[0]);
+        time.setMinutes(timeArray[1]);
+
+        return time;
+    }
 
     var uploadFiles = function(type) {
         var formData = new FormData();
@@ -99,6 +169,15 @@
 <h3>Time manipulation</h3>
 <div id="slider" style="width:200px;"></div>
 <span id="timePercentage">100%</span>
+<h3>Master time counter</h3>
+Current master time:<div class="masterTime"></div>
+<div id="masterTimeSlider" style="width:200px;"></div>
+<span id="masterTimePercentage">100%</span>
+<table>
+    <tr><th>Real time</th><th></th><th>Master time</th></tr>
+    <tr><td rowspan="2"><input type="text" id="realTimeInput"></td><td><button id="realToMaster"> ---> </button></td><td rowspan="2"><input type="text" id="masterTimeInput"></td></tr>
+    <tr><td><button id="masterToReal"> <--- </button></td></td></tr>
+</table>
 <h3>Restart CML</h3>
 <button onclick="socket.emit('cmlRestart')">Restart CML</button>
 <h3>CML tasks</h3>
