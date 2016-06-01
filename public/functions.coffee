@@ -53,18 +53,18 @@ processCommand = (data) ->
       $('#command').val('')
       $('#typed').append("<div class='terminalRow'> Enter password: </div>")
       window.cmlShutdown = true
-      $('#command').addClass('invisible')
+      $('#command').attr('type', 'password')
     else
       if(window.cmlShutdown == true and command != 'rvzbtlyocmshfquafadipxaacabaekdewaanjg')
         $('#typed').append("<div class='terminalRow'> WRONG CML PASSWORD </div>")
         window.cmlShutdown = false
-        $('#command').removeClass('invisible')
+        $('#command').attr('type', 'text')
         $('#command').val('')
       else
         if command == 'rvzbtlyocmshfquafadipxaacabaekdewaanjg' and window.cmlShutdown == true
           command = 'cml shutdown'
           document.getElementById("audioShutdown").play()
-          $('#command').removeClass('invisible')
+          $('#command').attr('type', 'text')
           window.cmlShutdown = false
         $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>")
         $.ajax(

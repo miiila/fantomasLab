@@ -55,18 +55,18 @@ processCommand = function(data) {
       $('#command').val('');
       $('#typed').append("<div class='terminalRow'> Enter password: </div>");
       window.cmlShutdown = true;
-      return $('#command').addClass('invisible');
+      return $('#command').attr('type', 'password');
     } else {
       if (window.cmlShutdown === true && command !== 'rvzbtlyocmshfquafadipxaacabaekdewaanjg') {
         $('#typed').append("<div class='terminalRow'> WRONG CML PASSWORD </div>");
         window.cmlShutdown = false;
-        $('#command').removeClass('invisible');
+        $('#command').attr('type', 'text');
         return $('#command').val('');
       } else {
         if (command === 'rvzbtlyocmshfquafadipxaacabaekdewaanjg' && window.cmlShutdown === true) {
           command = 'cml shutdown';
           document.getElementById("audioShutdown").play();
-          $('#command').removeClass('invisible');
+          $('#command').attr('type', 'text');
           window.cmlShutdown = false;
         }
         $('#typed').append("<div class='terminalRow'> > " + escapeString(command) + "</div>");
