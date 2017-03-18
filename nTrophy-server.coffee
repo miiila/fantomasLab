@@ -20,18 +20,14 @@ auth = (request, response, next) ->
 
 #Start App and routing
 app = express()
-app.use(multer({
-  dest: './files',
-  rename: (fieldname,filename) ->
-    return fieldname
-  onFileUploadStart: (file) ->
-    console.log("Uploading: "+ file.originalname)
-  onFileUploadData: (file, data, request, response) ->
-    response.fileContent = JSON.parse(data)
-  onFileUploadComplete: (file,request,response) ->
-    console.log("Finished: "+ file.originalname)
-    response.statusCode = 200
-}))
+storage = multer.diskStorage(
+  destination: (req, file, cb) ->
+    cb(null, './files')
+  filename: (req, file, cb) ->
+    cb(null, file.fieldname + '.json')
+)
+
+upload = multer({storage})
 
 app.get('/', (request,response) ->
   response.statusCode = 200
@@ -41,7 +37,7 @@ app.get('/processCommand/:command', (request,response) ->
   response.statusCode = 200
   response.send(verificator.parseCommand(request.params.command)))
 
-app.post('/uploadFile', (request,response) ->
+app.post('/uploadFile', upload.any(), (request,response) ->
     response.send(response.fileContent))
 
 app.get('/cml-client.html',auth,(request,response) ->
