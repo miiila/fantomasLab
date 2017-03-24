@@ -44,13 +44,16 @@ app.get('/cml-client.html',auth,(request,response) ->
   response.sendFile(__dirname+'/public/cml-client.html'))
 
 app.get('/ntrophy-admin.html',auth, (request,response) ->
-  response.sendFile(__dirname+'/public/ntrophy-admin.html'))
+  response.sendFile(__dirname+'/public/ntrophy-admin-vue.html'))
 
 app.get('/functions.js', (request,response) ->
   response.sendFile(__dirname+'/js/functions.js'))
 
 app.get('/typed.js', (request,response) ->
   response.sendFile(__dirname+'/js/vendor/typed.js'))
+
+app.get('/vue.js', (request,response) ->
+  response.sendFile(__dirname+'/js/vendor/vue.js'))
 
 app.get('/*.css', (request,response) ->
   response.sendFile(__dirname+'/css/'+request.params[0]+'.css'))
